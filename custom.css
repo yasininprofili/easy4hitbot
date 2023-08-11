@@ -1,0 +1,15 @@
+.start-button
+{
+        position: fixed;
+    bottom: 15px;
+    z-index: 999;
+    right: 29px;
+}
+
+.stop-button
+{
+            position: fixed;
+    bottom: 15px;
+    z-index: 999;
+    right: 200px;
+}
