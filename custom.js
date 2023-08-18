@@ -1,11 +1,14 @@
 $(window).ready(function()
 {
+
     setTimeout(() => 
     {
-        $(".button-group-switch").append('<button class="start-button">Başla</button>')
-        $(".button-group-switch").append('<button class="stop-button">Dur</button>')
+        $("body").append('<button class="start-button">Başla</button>')
+        $("body").append('<button class="stop-button">Dur</button>')
 
         $(".stop-button").hide();
+
+      
     }, 2000);
 
     $("body").on("click", ".start-button", function(){
