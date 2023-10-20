@@ -3,13 +3,26 @@ $(window).ready(function()
 
     setTimeout(() => 
     {
-        $("body").append('<button class="start-button">Başla</button>')
-        $("body").append('<button class="stop-button">Dur</button>')
+        $(".filter_system .select-option:last").trigger("click")
 
-        $(".stop-button").hide();
-
-      
     }, 2000);
+
+    setTimeout(() => 
+    {
+        youtubePlay();
+    }, 5000);
+
+   
+    // 5 dakika (5 dakika = 300 saniye)
+    const beklemeSuresiMs = 5 * 60 * 1000;
+
+    // Sayfanın belirtilen süre aralıklarla yenilenmesini sağlayacak işlev
+    function sayfayiYenile() {
+        location.reload(); // Sayfayı yenile
+    }
+
+    // setInterval kullanarak işlemin belirtilen süre aralıklarla tekrarlanmasını sağla
+    setInterval(sayfayiYenile, beklemeSuresiMs);
 
     $("body").on("click", ".start-button", function(){
 
@@ -56,14 +69,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.command === "youtube_tab_closed") {
         setTimeout(() => 
         {
-            chrome.storage.local.get("command", function (data) 
-            {
-                var command = data.command;
-                if (command === "start") 
-                {
-                    youtubePlay();
-                }
-            });
+            youtubePlay();
 
         }, 3000);
     }
@@ -71,13 +77,12 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
 var youtubePlay = () => 
 {
-    var item    = $("#my_logs").find(".youtube").first();
-    var content = item.closest(".task-row");
-    content.find(".task-content").trigger("click");
-    item.removeClass("youtube");
+    var item = $("#my_logs").find(".task-row").first();
+    item.find(".task-content").trigger("click");
+    item.removeClass("task-row");
 
     $('html, body').animate({
-        scrollTop: content.offset().top
+        scrollTop: item.offset().top
     }, 1000); // 1000 milisaniyede scroll işlemi tamamlansın (isteğe bağlı)
 }
 
